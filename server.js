@@ -8,37 +8,37 @@ const app = express();
 // http://localhost:3000/multiply?value1=10&value2=2
 // http://localhost:3000/divide?value1=10&value2=2
 
-app.get("/", (req, res) => {
-  res.send("Stuff");
-});
+// app.get("/", (req, res) => {
+//   res.send("Stuff");
+// });
 
-app.get("/add", (req, res) => {
-  const value1 = Number(req.query.value1);
-  const value2 = Number(req.query.value2);
-  const sum = value1 + value2;
-  res.send(`${sum}`);
-});
+// app.get("/add", (req, res) => {
+//   const value1 = Number(req.query.value1);
+//   const value2 = Number(req.query.value2);
+//   const sum = value1 + value2;
+//   res.send(`${sum}`);
+// });
 
-app.get("/subtract", (req, res) => {
-  const value1 = Number(req.query.value1);
-  const value2 = Number(req.query.value2);
-  const subtraction = value1 - value2;
-  res.send(`${subtraction}`);
-});
+// app.get("/subtract", (req, res) => {
+//   const value1 = Number(req.query.value1);
+//   const value2 = Number(req.query.value2);
+//   const subtraction = value1 - value2;
+//   res.send(`${subtraction}`);
+// });
 
-app.get("/multiply", (req, res) => {
-  const value1 = Number(req.query.value1);
-  const value2 = Number(req.query.value2);
-  const product = value1 * value2;
-  res.send(`${product}`);
-});
+// app.get("/multiply", (req, res) => {
+//   const value1 = Number(req.query.value1);
+//   const value2 = Number(req.query.value2);
+//   const product = value1 * value2;
+//   res.send(`${product}`);
+// });
 
-app.get("/divide", (req, res) => {
-  const value1 = Number(req.query.value1);
-  const value2 = Number(req.query.value2);
-  const division = value1 / value2;
-  res.send(`${division}`);
-});
+// app.get("/divide", (req, res) => {
+//   const value1 = Number(req.query.value1);
+//   const value2 = Number(req.query.value2);
+//   const division = value1 / value2;
+//   res.send(`${division}`);
+// });
 
 /** Step 2: Reading endpoints parameters **/
 // http://localhost:3000/add/10/2
@@ -63,32 +63,47 @@ app.get("/:account/:repository", (req, res) => {
   );
 });
 */
-app.get("/add/:value1/:value2", (req, res) => {
-  const value1 = Number(req.params.value1);
-  const value2 = Number(req.params.value2);
-  const sum = value1 + value2;
-  res.send(`${sum}`);
-});
+// app.get("/add/:value1/:value2", (req, res) => {
+//   const value1 = Number(req.params.value1);
+//   const value2 = Number(req.params.value2);
+//   const sum = value1 + value2;
+//   res.send(`${sum}`);
+// });
 
-app.get("/subtract/:value1/:value2", (req, res) => {
-  const value1 = Number(req.params.value1);
-  const value2 = Number(req.params.value2);
-  const subtract = value1 - value2;
-  res.send(`${subtract}`);
-});
+// app.get("/subtract/:value1/:value2", (req, res) => {
+//   const value1 = Number(req.params.value1);
+//   const value2 = Number(req.params.value2);
+//   const subtract = value1 - value2;
+//   res.send(`${subtract}`);
+// });
 
-app.get("/multiply/:value1/:value2", (req, res) => {
-  const value1 = Number(req.params.value1);
-  const value2 = Number(req.params.value2);
-  const product = value1 * value2;
-  res.send(`${product}`);
-});
+// app.get("/multiply/:value1/:value2", (req, res) => {
+//   const value1 = Number(req.params.value1);
+//   const value2 = Number(req.params.value2);
+//   const product = value1 * value2;
+//   res.send(`${product}`);
+// });
 
-app.get("/divide/:value1/:value2", (req, res) => {
+// app.get("/divide/:value1/:value2", (req, res) => {
+//   const value1 = Number(req.params.value1);
+//   const value2 = Number(req.params.value2);
+//   const divide = value1 / value2;
+//   res.send(`${divide}`);
+// });
+
+/** COMBINING INTO ONE FUNCTION**/
+app.get("/:operation/:value1/:value2", (req, res) => {
+  const operation = req.params.operation;
   const value1 = Number(req.params.value1);
   const value2 = Number(req.params.value2);
-  const divide = value1 / value2;
-  res.send(`${divide}`);
+  let result = "";
+  if (operation == "add") {
+    result = value1 + value2;
+  }
+  operation == "subtract" ? (result = value1 - value2) : "";
+  operation == "multiply" ? (result = value1 * value2) : "";
+  operation == "divide" ? (result = value1 / value2) : "";
+  res.send(`${result}`);
 });
 
 /** Step 3: use a logger **/
