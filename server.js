@@ -93,17 +93,22 @@ app.get("/:account/:repository", (req, res) => {
 
 /** COMBINING INTO ONE FUNCTION**/
 app.get("/:operation/:value1/:value2", (req, res) => {
-  const operation = req.params.operation;
-  const value1 = Number(req.params.value1);
-  const value2 = Number(req.params.value2);
-  let result = "";
-  if (operation == "add") {
-    result = value1 + value2;
+  try {
+    const operation = req.params.operation;
+    const value1 = Number(req.params.value1);
+    const value2 = Number(req.params.value2);
+    let result = "";
+    if (operation == "add") {
+      result = value1 + value2;
+    }
+    operation == "subtract" ? (result = value1 - value2) : "";
+    operation == "multiply" ? (result = value1 * value2) : "";
+    operation == "divide" ? (result = value1 / value2) : "";
+    res.send(`${result}`);
+  } catch (error) {
+    console.log(error);
+    res.send(`Go check the console log ${error}`);
   }
-  operation == "subtract" ? (result = value1 - value2) : "";
-  operation == "multiply" ? (result = value1 * value2) : "";
-  operation == "divide" ? (result = value1 / value2) : "";
-  res.send(`${result}`);
 });
 
 /** Step 3: use a logger **/
